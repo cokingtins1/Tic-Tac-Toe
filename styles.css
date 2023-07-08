@@ -1,0 +1,60 @@
+*, *::before, *::after{
+    box-sizing: border-box;
+    font-family: Gotham Rounded, sans-serif;
+    font-weight: normal;
+}
+
+body{
+    padding: 0;
+    margin: 0;  /*remove padding and margin so background fills entire screen*/
+    background: linear-gradient(to right, #00AAFF, #d6d8db);
+}
+
+.calculator-grid{
+    display: grid;
+    justify-content: center;
+    align-content: center;  /*align entire contents to center. If we align-items, just aligning items themselves */
+    min-height: 100vh; /*make calculator take up full screen */
+    grid-template-columns: repeat(4, 100px);
+    grid-template-rows: minmax(120px, auto) repeat(5, 100px); /*output row height will grow as needed to fit value */
+}
+
+/*select all buttons inside grid */
+.calculator-grid > button{
+cursor: pointer;
+font-size: 2rem;
+border: 1px solid white;
+outline: none;
+background-color: rgba(255,255,255,.75); /*make buttons grey but 75% opaque*/
+}
+
+/*select all buttons inside grid when hovering over them */
+.calculator-grid > button:hover{
+    background-color: rgba(255,255,255,.9) ;
+}
+
+.span-two{
+    grid-column: span 2; /*make certain buttons span two columns*/
+}
+
+.output{
+    grid-column: 1 / -1; /*span the output from first row (1) to last row (-1)*/
+    background-color: rgba(0,0,0,.75);
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-around;
+    flex-direction: column;
+    padding: 10px;
+    word-wrap: break-word; /*wrap output*/
+    word-break: break-all;
+}
+
+.output .previous-operand{
+    color: rgba(255,255,255.75);
+    font-size: 1.5rem;
+}
+
+.output .current-operand{
+    color: white;
+    font-size: 2.5rem;
+}
