@@ -1,7 +1,19 @@
 const box = document.querySelectorAll('.box')
 
+// const player1 = 'X'
+// const plater2 = 'O'
 
+let board = [
+    ['', '', ''],
+    ['', '', ''],
+    ['', '', '']
+];
 
+let gameArray = [
+    [0, 0, 0],
+    [0, 0, 0],
+    [0, 0, 0]
+];
 
 const posArray = [
     [0, 1, 2],
@@ -9,92 +21,106 @@ const posArray = [
     [6, 7, 8]
 ];
 
-const winArray = [
-    [0, 1, 2],
-    [0, 3, 6],
-    [3, 4, 5],
-    [6, 7, 8],
-    [1, 4, 7],
-    [2, 4, 6],
-    [2, 5, 8],
-    [0, 4, 8]
-]
+const playerFactory = (name, mark, turn) => {
+    return {name, mark, turn}
+}
 
-var player = [[0, 0, 0], [0, 0, 0], [0, 0, 0]]
-var player2 = []
-var count = 0
+const player1 = playerFactory('player1', 'X', true)
+const player2 = playerFactory('player2', 'O', false)
 
-box.forEach(e => e.addEventListener('click', () => {
+
+
+let clicked = Array.from({length:box.length},() => false);
+
+for (let i=0;i<box.length; i++){
+    box[i].addEventListener('click', function(){
+        if(!clicked[i] && player1.turn == true){
+            var index = box[i].id
+            playGame(index,player1.mark)
+            clicked[i] = true
+            player1.turn = !player1.turn
+            // console.log(player1.turn)
+        } else if(!clicked[i] && player1.turn == false) {
+            var index = box[i].id
+            playGame(index,player2.mark)
+            clicked[i] = true
+            player1.turn = !player1.turn
+            // console.log(player1.turn)
+            
+        }
+        else{
+            return
+        }
+    })
+}
+
+function playGame(index, mark) {
+
     // position 0 through 8
-    var t = parseInt(e.id)
-    player2.push(t)
+    var t = parseInt(index)
 
-    var gameArray = [
-        [0, 0, 0],
-        [0, 0, 0],
-        [0, 0, 0]
-    ];
+    for (let j = 0; j < 3; j++) {
+        for (let i = 0; i < 3; i++) {
+            if (posArray[j][i] === t) {
+                gameArray[j][i] = t
+            }
+        }
+    }
 
-    // let counter = 0
-    // for (let j = 0; j < 3; j++) {
-    //     for (let i = 0; i < 3; i++) {
 
-    //         if (posArray[j][i] === t) {
-    //             gameArray[j][i] = 1
-    //         }
+    // return position index of targeted square
+    var row = gameArray.findIndex(row => row.includes(t))
+    var col = gameArray[row].indexOf(t)
 
-    //         if (gameArray[j][i] === 0) {
-    //             counter +=1
-    //             }
+    board[row][col] = mark 
 
-    //             else{player2.push(counter)
+    console.log(board)
+
+    checkWin()
+
+
+
     
-    //             }
-    //     }
-
-    // }
-
-    // for(let [index, combo] of winArray.entries()){
-    //     console.log(combo)
-    // }
-
-console.log(player2)
-
-}))
-
-    // const array = [,,1]
-    // if(!array[0]){
-    //     console.log("array is empty")
-    // }
-
-    // console.log(array[0])
-    // for (let j = 0; j<3; j++) {
-    //     for (let i = 0; i < 3; i++) {
-
-    //         if (gameArray[j][i] != 0) {
-    //             var row = gameArray.findIndex(row => row.includes(t))
-    //             var col = gameArray[row].indexOf(t)
-    //             player.push()
-
-    //         }
+}
 
 
-    //     }
 
-    // }
+function checkWin() {
+
+    // // check rows
+    for (let i = 0; i < 3; i++) {
+        if (board[i][0] === board[i][1] && board[i][1] === board[i][2]) {
+
+            console.log(' shit you won')
+        }
+
+    }
+
+    // check columns
+    for (let i = 0; i < 3; i++) {
+        if (board[0][i] === 'x' &&
+            board[1][i] === 'x' &&
+            board[2][i] === 'x') {
+
+            console.log('holy shit you won')
+        }
+
+    }
+
+    // check diagonals
+    if (board[0][0] === 'x' &&
+        board[1][1] === 'x' &&
+        board[2][2] === 'x') {
+
+        console.log('holy shit you won')
+    }
+
+    if (board[0][2] === 'x' &&
+        board[1][1] === 'x' &&
+        board[2][0] === 'x') {
+
+        console.log('holy shit you won')
+    }
 
 
-    // find position of target (t) within gameArray
-
-    // console.log(row,col)
-
-    // for (const [key, value] of Object.entries(posArray)) {
-    //     console.log(`${key}: ${value}`);
-    //   }
-
-// function checkScore(){
-//
-// }
-
-
-// console.log(box)
+}
