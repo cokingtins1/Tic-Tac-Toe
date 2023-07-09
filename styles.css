@@ -4,57 +4,46 @@
     font-weight: normal;
 }
 
+html{
+    height: 100%;
+    width: 100%;
+    background-color: grey;
+}
+
+
 body{
+    display: grid;
+    grid-template-rows: repeat(3, 20% 60% 20%);
     padding: 0;
     margin: 0;  /*remove padding and margin so background fills entire screen*/
-    background: linear-gradient(to right, #00AAFF, #d6d8db);
+    height: 100%;
+    width: 100%;
 }
 
-.calculator-grid{
-    display: grid;
-    justify-content: center;
-    align-content: center;  /*align entire contents to center. If we align-items, just aligning items themselves */
-    min-height: 100vh; /*make calculator take up full screen */
-    grid-template-columns: repeat(4, 100px);
-    grid-template-rows: minmax(120px, auto) repeat(5, 100px); /*output row height will grow as needed to fit value */
-}
-
-/*select all buttons inside grid */
-.calculator-grid > button{
-cursor: pointer;
-font-size: 2rem;
-border: 1px solid white;
-outline: none;
-background-color: rgba(255,255,255,.75); /*make buttons grey but 75% opaque*/
-}
-
-/*select all buttons inside grid when hovering over them */
-.calculator-grid > button:hover{
-    background-color: rgba(255,255,255,.9) ;
-}
-
-.span-two{
-    grid-column: span 2; /*make certain buttons span two columns*/
-}
-
-.output{
-    grid-column: 1 / -1; /*span the output from first row (1) to last row (-1)*/
-    background-color: rgba(0,0,0,.75);
+.table-container {
+    /* display: none; */
     display: flex;
-    align-items: flex-end;
-    justify-content: space-around;
-    flex-direction: column;
-    padding: 10px;
-    word-wrap: break-word; /*wrap output*/
-    word-break: break-all;
+    grid-row: 2;
+
+    justify-content: center;
+    align-content: center;
+    border-collapse: collapse;
+    font-size: 2rem;
+    font-weight: 600; 
+    width: 20em;
+    height: 100%;
+    margin: 0 auto;
+    margin-bottom: 1em;
 }
 
-.output .previous-operand{
-    color: rgba(255,255,255.75);
-    font-size: 1.5rem;
-}
 
-.output .current-operand{
-    color: white;
-    font-size: 2.5rem;
+.box {
+    border: 10px rgb(226, 226, 226) solid;
+    color: black;
+    width: 2em;
+    height: 1.5em;
+    font-size: 5rem;
+    text-align: center;
+    cursor: default;
+  
 }

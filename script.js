@@ -1,136 +1,100 @@
-// Constants must be defined before new Calculator
-const numberButtons = document.querySelectorAll('[data-number]') //select all buttons with data attribut "data-number"
-const operationButtons = document.querySelectorAll('[data-operation]')
-const equalsButton = document.querySelector('[data-equals]')
-const deleteButton = document.querySelector('[data-delete]')
-const allClearButton = document.querySelector('[data-all-clear]')
-const previousOperandTextElement = document.querySelector('[data-previous-operand]')
-const currentOperandTextElement = document.querySelector('[data-current-operand]')
+const box = document.querySelectorAll('.box')
 
 
-class Calculator {
-    constructor(previousOperandTextElement, currentOperandTextElement) {
-        this.previousOperandTextElement = previousOperandTextElement
-        this.currentOperandTextElement = currentOperandTextElement
-        this.clear() //call clear function when new calculator is created
+
+
+const posArray = [
+    [0, 1, 2],
+    [3, 4, 5],
+    [6, 7, 8]
+];
+
+const winArray = [
+    [0, 1, 2],
+    [0, 3, 6],
+    [3, 4, 5],
+    [6, 7, 8],
+    [1, 4, 7],
+    [2, 4, 6],
+    [2, 5, 8],
+    [0, 4, 8]
+]
+
+var player = [[0, 0, 0], [0, 0, 0], [0, 0, 0]]
+var player2 = []
+var count = 0
+
+box.forEach(e => e.addEventListener('click', () => {
+    // position 0 through 8
+    var t = parseInt(e.id)
+    player2.push(t)
+
+    var gameArray = [
+        [0, 0, 0],
+        [0, 0, 0],
+        [0, 0, 0]
+    ];
+
+    // let counter = 0
+    // for (let j = 0; j < 3; j++) {
+    //     for (let i = 0; i < 3; i++) {
+
+    //         if (posArray[j][i] === t) {
+    //             gameArray[j][i] = 1
+    //         }
+
+    //         if (gameArray[j][i] === 0) {
+    //             counter +=1
+    //             }
+
+    //             else{player2.push(counter)
     
-    }
+    //             }
+    //     }
 
-    clear(){
-        this.currentOperand = ''
-        this.previousOperand = ''
-        this.operation = undefined
+    // }
 
-    }
+    // for(let [index, combo] of winArray.entries()){
+    //     console.log(combo)
+    // }
 
-    delete(){
-        if(currentOperandTextElement !=='') {
-            return
-        }
-        else{
-        this.currentOperand = this.currentOperand.toString().slice(0,-1)}
-    }
+console.log(player2)
 
-    appendNumber(number){
-        if (number ==='.' && this.currentOperand.includes('.')) return //prevent user from adding multiple periods
-        
-        this.currentOperand = this.currentOperand.toString() + number.toString() //add number as string instead of adding together (11 vs 2)
-    }
+}))
 
-    chooseOperation(operation){
-        // Check if previous operand exists
-        if (this.currentOperand ==='') return
-        if (this.previousOperand !== ''){
-            this.compute
-        }
-        
-        this.operation = operation
-        this.previousOperand = this.currentOperand.toString() + ' ' + operation.toString()
-        this.currentOperand = ''
+    // const array = [,,1]
+    // if(!array[0]){
+    //     console.log("array is empty")
+    // }
 
-    }
+    // console.log(array[0])
+    // for (let j = 0; j<3; j++) {
+    //     for (let i = 0; i < 3; i++) {
 
-    compute (){
-        let computation
-        const prev = parseFloat(this.previousOperand)
-        const current = parseFloat(this.currentOperand)
-        switch (this.operation) {
-            case '+': 
-                computation = prev + current
-                break
-            case '-':
-                computation = prev - current
-                break
-            case '*':
-                computation = prev * current
-                break
-            case '/':
-                computation = prev / current
-                break
-            default:
-                return
-        }
-        
-        this.currentOperand = computation
-        this.operation = undefined
-        this.previousOperand = ''
-    }
+    //         if (gameArray[j][i] != 0) {
+    //             var row = gameArray.findIndex(row => row.includes(t))
+    //             var col = gameArray[row].indexOf(t)
+    //             player.push()
 
-    getDisplayNumber(number){
-        const stringNumber = number.toString()
-        const integerDigits = parseFloat(stringNumber.split('.')[0])
-        const decimalDigits = stringNumber.split('.')[1]
-        let integerDisplay
-        if (isNaN(integerDigits)) {
-            integerDisplay = ''
-        } else {
-            integerDisplay = integerDigits.toLocaleString('en', {
-                maximumFractionDigits: 0})
-        }
-        if (decimalDigits != null) {
-            return `${integerDisplay}.${decimalDigits}`
-        } else{
-                return integerDisplay
-            }
-    }  
+    //         }
 
-    updateDisplay(){
-        this.currentOperandTextElement.innerText = this.getDisplayNumber(this.currentOperand)
-        this.previousOperandTextElement.innerText = this.previousOperand
 
-    }
-}
+    //     }
 
-const calculator = new Calculator(previousOperandTextElement, currentOperandTextElement) //with blank calculator, previous and current are nothing ('')
+    // }
 
-// Add event listener to obtain button value when clicked
-numberButtons.forEach(button => {
-    button.addEventListener('click', () => {
-        calculator.appendNumber(button.innerText)
-        calculator.updateDisplay()
-    })
-})
 
-operationButtons.forEach(button => {
-    button.addEventListener('click', () => {
-        calculator.chooseOperation(button.innerText)
-        calculator.updateDisplay()
-    })
-})
+    // find position of target (t) within gameArray
 
-allClearButton.addEventListener('click', () => {
-    calculator.clear()
-    calculator.updateDisplay()
-})
+    // console.log(row,col)
 
-deleteButton.addEventListener('click', () => {
-    calculator.delete()
-    calculator.updateDisplay()
-})
+    // for (const [key, value] of Object.entries(posArray)) {
+    //     console.log(`${key}: ${value}`);
+    //   }
 
-equalsButton.addEventListener('click', () => {
-    calculator.compute()
-    calculator.updateDisplay()
-    
-})
+// function checkScore(){
+//
+// }
 
+
+// console.log(box)
